@@ -1,7 +1,20 @@
 import { Flex, Icon, Input } from "@chakra-ui/react";
+import { useRef } from "react";
 import { RiSearchLine } from "react-icons/ri";
 
+// Uncontrolled Components = acessar o valor de um componente apenas quando desejarmos
+// Exemplo: Input não vai ficar sendo chamado cada vez que ele receber um valor, mas apenas quando chamarmos. Salvamos o valor no useRef()
+
+// Controlled Components
+// Exemplo: Input é chamado quando o seu valor é alterado. Salvamos o valor no useState()
+
+// https://stackoverflow.com/questions/42522515/what-are-react-controlled-components-and-uncontrolled-components
+
 export function SearchBox() {
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  console.log(searchInputRef.current?.focus());
+
   return (
     <Flex
       as="label"
@@ -25,6 +38,7 @@ export function SearchBox() {
         _placeholder={{
           color: "gray.400",
         }}
+        ref={searchInputRef}
       />
       <Icon as={RiSearchLine} fontSize="20" />
     </Flex>
