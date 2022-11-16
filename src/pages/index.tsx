@@ -1,5 +1,7 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
 import { Input } from "../components/Form/Input";
 
 type SignInFormData = {
@@ -7,8 +9,17 @@ type SignInFormData = {
   password: string;
 };
 
+const signInFormSchema = yup.object().shape({
+  email: yup.string().required().email(),
+  password: yup.string().required(),
+});
+
 export default function Home() {
-  const { register, handleSubmit, formState } = useForm<SignInFormData>();
+  const { register, handleSubmit, formState } = useForm<SignInFormData>({
+    resolver: yupResolver(signInFormSchema),
+  });
+
+  const { errors } = formState;
 
   // A propriedade register() recebe as props name, ref, onChange e onBlur
   // Devido a isso não precisamos passar o name no input que receber o {...register("")}
@@ -33,8 +44,18 @@ export default function Home() {
         onSubmit={handleSubmit(handleSignIn)}
       >
         <Stack spacing="4">
-          <Input label="E-mail" type="email" {...register("email")} />
-          <Input label="Senha" type="password" {...register("password")} />
+          <Input
+            label="E-mail"
+            type="email"
+            error={errors.email}
+            {...register("email")}
+          />
+          <Input
+            label="Senha"
+            type="password"
+            error={errors.password}
+            {...register("password")}
+          />
         </Stack>
         <Button
           type="submit"
