@@ -32,7 +32,7 @@ export function makeServer() {
 
     // Criar algum dado assim que o servidor do Mirage for inicializado
     seeds(server) {
-      server.createList("user", 200);
+      server.createList("user", 20);
     },
 
     // Quais rotas terá no Mirage
