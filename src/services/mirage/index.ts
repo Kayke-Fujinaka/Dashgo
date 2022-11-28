@@ -50,7 +50,7 @@ export function makeServer() {
         const perPageAsNumber = Number(per_page);
 
         const pageStart = (pageAsNumber - 1) * perPageAsNumber;
-        const pageEnd = pageStart - perPageAsNumber;
+        const pageEnd = pageStart + perPageAsNumber;
 
         const total = schema.all("user").length;
 
