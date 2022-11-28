@@ -32,7 +32,7 @@ export function makeServer() {
 
     // Criar algum dado assim que o servidor do Mirage for inicializado
     seeds(server) {
-      server.createList("user", 200);
+      server.createList("user", 20);
     },
 
     // Quais rotas terá no Mirage
@@ -46,23 +46,20 @@ export function makeServer() {
       this.get("/users", function (schema, request) {
         const { page = 1, per_page = 10 } = request.queryParams;
 
-        const total = schema.all("user").length;
+        const pageAsNumber = Number(page);
+        const perPageAsNumber = Number(per_page);
 
-        const pageStart = (Number(page) - 1) * Number(per_page);
-        const pageEnd = pageStart - Number(per_page);
+        const pageStart = (pageAsNumber - 1) * perPageAsNumber;
+        const pageEnd = pageStart - perPageAsNumber;
+
+        const total = schema.all("user").length;
 
         const users = this.serialize(schema.all("user")).users.slice(
           pageStart,
           pageEnd
         );
 
-        return new Response(
-          200,
-          {
-            "x-total-count": String(total),
-          },
-          { users }
-        );
+        return new Response(200, { "x-total-count": String(total) }, { users });
       });
 
       this.post("/users");
