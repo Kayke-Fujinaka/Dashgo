@@ -1,5 +1,11 @@
 import faker from "faker";
-import { createServer, Factory, Model, Response } from "miragejs";
+import {
+  ActiveModelSerializer,
+  createServer,
+  Factory,
+  Model,
+  Response,
+} from "miragejs";
 
 type User = {
   name: string;
@@ -9,6 +15,11 @@ type User = {
 
 export function makeServer() {
   const server = createServer({
+    // Como o mirage deve intepretrar os dados que são enviados para ele
+    serializers: {
+      application: ActiveModelSerializer,
+    },
+
     // Quais dados terão no Mirage (BD fictício)
     models: {
       // Partial serve para dizer que não necessariamente precisa ter todos os campos
