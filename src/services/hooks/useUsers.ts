@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { api } from "../api";
 
-const DURATION_FRESH_TO_STALE = 1000 * 5; // 5 secconds
+const DURATION_FRESH_TO_STALE = 1000 * 60 * 10; // 10 minutes
 
 interface Users {
   id: string;
