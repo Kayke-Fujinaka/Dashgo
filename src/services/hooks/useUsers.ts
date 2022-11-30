@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, UseQueryOptions } from "react-query";
 import { api } from "../api";
 
 const DURATION_FRESH_TO_STALE = 1000 * 60 * 10; // 10 minutes
@@ -38,8 +38,9 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
   return { users, totalCount };
 }
 
-export const useUsers = (page: number) => {
+export const useUsers = (page: number, options: UseQueryOptions) => {
   return useQuery(["users", page], () => getUsers(page), {
     staleTime: DURATION_FRESH_TO_STALE,
+    ...options,
   });
 };
