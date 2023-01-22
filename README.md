@@ -7,7 +7,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h1 align="center">Project Name</h1>
+  <h1 align="center">Dashgo</h1>
 
   <p align="center">
     A Dashboard application made with Chakra UI and Next.js!
